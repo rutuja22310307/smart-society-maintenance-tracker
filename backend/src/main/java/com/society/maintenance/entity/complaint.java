@@ -1,0 +1,80 @@
+package com.society.maintenance.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+
+@Entity
+@Table(name = "complaints")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Complaint {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
+    @Column(nullable = false)
+    private String title;
+
+
+    @Column(nullable = false, length = 1000)
+    private String description;
+
+
+    private String category;
+
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+
+    private String priority;
+
+
+    private LocalDateTime createdAt;
+
+
+    private LocalDateTime updatedAt;
+
+
+    // User who created complaint
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User createdBy;
+
+
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+
+        if(status == null){
+            status = Status.PENDING;
+        }
+    }
+
+
+    @PreUpdate
+    public void preUpdate(){
+        updatedAt = LocalDateTime.now();
+    }
+
+
+
+    public enum Status {
+        PENDING,
+        IN_PROGRESS,
+        RESOLVED,
+        REJECTED
+    }
+
+}
