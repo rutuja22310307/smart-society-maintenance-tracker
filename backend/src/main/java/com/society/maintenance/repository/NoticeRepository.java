@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface NoticeRepository 
         extends JpaRepository<Notice, Long> {
-
+List<Notice> findTop5ByOrderByCreatedAtDesc();
 
     List<Notice> findAllByOrderByCreatedAtDesc();
 

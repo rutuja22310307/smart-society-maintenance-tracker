@@ -1,29 +1,35 @@
-package com.society.maintenance.dto;
+package com.society.maintenance.controller;
 
+import com.society.maintenance.dto.AuthResponse;
+import com.society.maintenance.dto.LoginRequest;
+import com.society.maintenance.dto.RegisterRequest;
+import com.society.maintenance.service.UserService;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
 
+    private final UserService userService;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ComplaintVoteDTO {
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
+    @PostMapping("/register")
+    public AuthResponse register(
+            @Valid @RequestBody RegisterRequest request) {
 
-    private Long id;
+        return userService.register(request);
+    }
 
+    @PostMapping("/login")
+    public AuthResponse login(
+            @Valid @RequestBody LoginRequest request) {
 
-    private Long complaintId;
-
-
-    private String userName;
-
-
-    private LocalDateTime votedAt;
-
+        return userService.login(request);
+    }
 }

@@ -24,5 +24,6 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
     // Find complaints by category
     List<Complaint> findByCategory(String category);
 
-
+long countByStatus(Complaint.Status status);
+List<Complaint> findTop5ByOrderByCreatedAtDesc();
 }

@@ -41,7 +41,30 @@ public class ComplaintVoteController {
     }
 
 
+@GetMapping("/complaint/{complaintId}")
+public java.util.List<ComplaintVote> getVotesByComplaint(
+        @PathVariable Long complaintId
+){
 
+    Complaint complaint = new Complaint();
+    complaint.setId(complaintId);
+
+    return voteService.getVotesByComplaint(complaint);
+
+}
+
+
+@GetMapping("/count/{complaintId}")
+public long countVotes(
+        @PathVariable Long complaintId
+){
+
+    Complaint complaint = new Complaint();
+    complaint.setId(complaintId);
+
+    return voteService.countVotes(complaint);
+
+}
     @DeleteMapping("/{id}")
     public String removeVote(
             @PathVariable Long id
