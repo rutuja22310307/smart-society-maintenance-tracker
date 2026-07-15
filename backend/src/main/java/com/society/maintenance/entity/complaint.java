@@ -1,16 +1,16 @@
 package com.society.maintenance.entity;
 
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "complaints")
-@Data
+@Table(name="complaints")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Complaint {
@@ -25,7 +25,7 @@ public class Complaint {
     private String title;
 
 
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false,length = 1000)
     private String description;
 
 
@@ -45,36 +45,43 @@ public class Complaint {
     private LocalDateTime updatedAt;
 
 
-    // User who created complaint
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name="user_id")
     private User createdBy;
 
 
 
     @PrePersist
-    public void prePersist() {
+    public void prePersist(){
+
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
 
         if(status == null){
             status = Status.PENDING;
         }
+
     }
+
 
 
     @PreUpdate
     public void preUpdate(){
+
         updatedAt = LocalDateTime.now();
+
     }
 
 
 
-    public enum Status {
+    public enum Status{
+
         PENDING,
         IN_PROGRESS,
         RESOLVED,
         REJECTED
+
     }
 
 }

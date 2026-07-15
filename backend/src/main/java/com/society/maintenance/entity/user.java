@@ -1,19 +1,19 @@
 package com.society.maintenance.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,15 +45,25 @@ public class User {
     private LocalDateTime createdAt;
 
 
+
     @PrePersist
-    public void prePersist() {
+    public void prePersist(){
+
         createdAt = LocalDateTime.now();
+
+        if(role == null){
+            role = Role.RESIDENT;
+        }
     }
 
 
-    public enum Role {
+
+    public enum Role{
+
         ADMIN,
         RESIDENT,
         STAFF
+
     }
+
 }

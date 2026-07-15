@@ -2,16 +2,15 @@ package com.society.maintenance.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "maintenance")
-@Data
+@Table(name="maintenance")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Maintenance {
@@ -22,15 +21,15 @@ public class Maintenance {
     private Long id;
 
 
-    @Column(nullable = false)
+    @Column(nullable=false)
     private Double amount;
 
 
-    @Column(nullable = false)
+    @Column(nullable=false)
     private String month;
 
 
-    @Column(nullable = false)
+    @Column(nullable=false)
     private Integer year;
 
 
@@ -42,9 +41,8 @@ public class Maintenance {
 
 
 
-    // Resident who needs to pay
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name="user_id")
     private User user;
 
 
@@ -54,7 +52,7 @@ public class Maintenance {
 
         createdAt = LocalDateTime.now();
 
-        if(status == null){
+        if(status==null){
             status = PaymentStatus.PENDING;
         }
 

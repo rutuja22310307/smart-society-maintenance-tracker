@@ -2,16 +2,15 @@ package com.society.maintenance.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "notices")
-@Data
+@Table(name="notices")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notice {
@@ -22,11 +21,11 @@ public class Notice {
     private Long id;
 
 
-    @Column(nullable = false)
+    @Column(nullable=false)
     private String title;
 
 
-    @Column(nullable = false, length = 2000)
+    @Column(nullable=false,length=2000)
     private String message;
 
 
@@ -37,9 +36,8 @@ public class Notice {
 
 
 
-    // Admin who created notice
     @ManyToOne
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name="created_by")
     private User createdBy;
 
 

@@ -171,7 +171,8 @@ public class UserService {
 
         return new AuthResponse(
                 token,
-                "Registration Successful"
+                "Registration Successful",
+                user.getRole().name()
         );
     }
 
@@ -195,7 +196,8 @@ public class UserService {
 
         return new AuthResponse(
                 token,
-                "Login Successful"
+                "Login Successful",
+                user.getRole().name()
         );
     }
 }
